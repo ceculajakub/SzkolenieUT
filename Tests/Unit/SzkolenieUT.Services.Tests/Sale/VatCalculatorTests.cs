@@ -6,13 +6,11 @@ namespace SzkolenieUT.Services.Tests.Sale
 {
     public class VatCalculatorTests
     {
-
-        [Test]
-        public void CalculatePriceShouldReturnCorrectBruttoValue()
+        [TestCase(10, 23, 12.3d)]
+        [TestCase(20, 23, 24.6d)]
+        public void CalculatePriceShouldReturnCorrectBruttoValue(decimal netto, decimal vat, double expected)
         {
             //ARRANGE
-            decimal netto = 10, vat = 23;
-            decimal expected = 12.3m;
             VatCalculator calculator = new VatCalculator();
 
             //ACT
@@ -22,12 +20,12 @@ namespace SzkolenieUT.Services.Tests.Sale
             Assert.AreEqual(expected, actual);
         }
 
-        [Test]
-        public void CalculatePriceShouldReturnExceptionWhenNettoIsNegative()
+        [TestCase(-1)]
+        [TestCase(101)]
+        public void CalculatePriceShouldThrowOutOfRangeException(decimal vat)
         {
             //ARRANGE
-            decimal netto = -10, vat = 23;
-            decimal expected = 12.3m;
+            decimal netto = 10;
             VatCalculator calculator = new VatCalculator();
 
             //ACT & ASSERT
