@@ -4,18 +4,17 @@ namespace SzkolenieUT.Services.Sale
 {
     public class VatCalculator
     {
-
-        public decimal CalculatePrice(decimal netto, decimal vat)
+        public double CalculatePrice(double netto, double vat)
         {
             ValidateVat(vat);
             return netto + netto * vat / 100;
         }
 
-        private void ValidateVat(decimal vat)
+        private void ValidateVat(double vat)
         {
-            if (vat < 0m)
+            if (vat < 0d)
                 throw new ArgumentOutOfRangeException("vat nie może być mniejszy od 0");
-            if (vat > 100m)
+            if (vat > 100d)
                 throw new ArgumentOutOfRangeException("vat nie może być większy od 100");
         }
     }
